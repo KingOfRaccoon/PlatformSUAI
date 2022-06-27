@@ -2,4 +2,5 @@
 <resources>
     <string name="time">Время</string>
     <string name="event">Мероприятие</string>
+    <string name="no_event">Мероприятий нет</string>
 </resources>

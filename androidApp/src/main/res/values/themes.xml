@@ -54,4 +54,8 @@
     <style name="standardTextBold.start_time_and_and_text_in_card_in_calendar">
         <item name="android:textColor">#212525</item>
     </style>
+
+    <style name="btnv_back">
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

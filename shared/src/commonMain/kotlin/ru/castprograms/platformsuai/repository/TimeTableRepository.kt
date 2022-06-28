@@ -1,5 +1,7 @@
 package ru.castprograms.calendarkmmsuai.repository
 
+import ru.castprograms.platformsuai.repository.TimeTableService
+
 class TimeTableRepository(private val timeTableService: TimeTableService) {
     private val timeLesson = arrayOf(
         "9:30-11:00",

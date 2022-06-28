@@ -17,6 +17,9 @@ android {
             isMinifyEnabled = false
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -31,4 +34,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:2.4.2")
     implementation("androidx.core:core:1.7.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
+
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

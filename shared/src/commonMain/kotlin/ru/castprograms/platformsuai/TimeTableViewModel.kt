@@ -37,14 +37,11 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
     val semesterInfoFlow = _semesterInfoFlow.asSharedFlow()
 
     init {
-        _timeTableGroupFlow.tryEmit(Resource.Loading())
-        _semesterInfoFlow.tryEmit(Resource.Loading())
         loadData()
     }
 
     private fun loadData() {
         viewModelScope.launch(ioDispatcher) {
-            _timeTableGroupFlow.emit(Resource.Loading())
             _timeTableGroupFlow.emit(timeTableRepository.getTimeTableGroup("211"))
             timeTableRepository.getSemInfo().let { semester ->
                 if (semester is Resource.Success) {

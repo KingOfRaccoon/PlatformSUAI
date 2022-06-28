@@ -1,5 +1,8 @@
 package ru.castprograms.platformsuai.data.news
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NewsData(
     val Banners: List<Banner>,
     val Events: List<Event>,

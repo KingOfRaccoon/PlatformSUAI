@@ -23,10 +23,12 @@ class TimeTableService {
     private val baseUrlRasp = "https://api.guap.ru/rasp/custom"
     private val baseUrlNews = "https://news.guap.ru/api/get-node-content"
 
+    private val json = Json { coerceInputValues = true }
+
     suspend fun getNews(nodeName: String): Resource<NewsData> {
         return try {
             Resource.Success(
-                Json.decodeFromString(
+                json.decodeFromString(
                     httpClient.get("$baseUrlNews?node=$nodeName").body()
                 )
             )
@@ -38,7 +40,7 @@ class TimeTableService {
     suspend fun getSemInfo(): Resource<Semester> {
         return try {
             Resource.Success(
-                Json.decodeFromString(
+                json.decodeFromString(
                     httpClient.get("$baseUrlRasp/get-sem-info").body()
                 )
             )
@@ -50,7 +52,7 @@ class TimeTableService {
     suspend fun getGroups(): Resource<List<Group>> {
         return try {
             Resource.Success(
-                Json.decodeFromString(
+                json.decodeFromString(
                     httpClient.get("$baseUrlRasp/get-sem_groups").body()
                 )
             )
@@ -62,7 +64,7 @@ class TimeTableService {
     suspend fun getTimeTableGroup(numberGroup: String): Resource<Map<Int, List<Lesson>>> {
         return try {
             Resource.Success(
-                (Json.decodeFromString(
+                (json.decodeFromString(
                     httpClient.get("$baseUrlRasp/get-sem-rasp/group$numberGroup").body()
                 ) as List<Lesson>).sortedBy { it.less }.groupBy { it.week * 10 + it.day }
             )

@@ -33,6 +33,7 @@ class LessonsAdapter(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_event, parent, false)
         )
+
     }
 
     override fun onBindViewHolder(holder: LessonsViewHolder, position: Int) {

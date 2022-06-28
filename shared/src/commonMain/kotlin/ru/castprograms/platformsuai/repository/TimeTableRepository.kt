@@ -17,6 +17,7 @@ class TimeTableRepository(private val timeTableService: TimeTableService) {
 
     suspend fun getSemInfo() = timeTableService.getSemInfo()
     suspend fun getGroups() = timeTableService.getGroups()
+    suspend fun getNews(nodeName: String) = timeTableService.getNews(nodeName)
     suspend fun getTimeTableGroup(groupNumber: String) =
         timeTableService.getTimeTableGroup(groupNumber)
 

@@ -14,6 +14,7 @@ import ru.castprograms.calendarkmmsuai.data.time.DataTimeWithDifferentWeek
 import ru.castprograms.platformsuai.dispatchers.ioDispatcher
 import ru.castprograms.calendarkmmsuai.repository.TimeTableRepository
 import ru.castprograms.calendarkmmsuai.util.Resource
+import ru.castprograms.platformsuai.data.news.NewsData
 
 class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) : ViewModel() {
     private val _timeTableGroupFlow = MutableSharedFlow<Resource<Map<Int, List<Lesson>>>>(
@@ -28,13 +29,17 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
     )
     val datesFlow = _datesFlow.asSharedFlow()
 
-    private val _semesterInfoFlow by lazy {
-        MutableSharedFlow<Resource<Semester>>(
+    private val _semesterInfoFlow = MutableSharedFlow<Resource<Semester>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
-    }
     val semesterInfoFlow = _semesterInfoFlow.asSharedFlow()
+
+    private val _newsFlow = MutableSharedFlow<Resource<NewsData>>(
+        replay = 1,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    )
+    val newsFlow = _newsFlow.asSharedFlow()
 
     init {
         loadData()
@@ -43,6 +48,7 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
     private fun loadData() {
         viewModelScope.launch(ioDispatcher) {
             _timeTableGroupFlow.emit(timeTableRepository.getTimeTableGroup("211"))
+            _newsFlow.emit(timeTableRepository.getNews("main"))
             timeTableRepository.getSemInfo().let { semester ->
                 if (semester is Resource.Success) {
                     semester.data?.let { data ->

@@ -1,10 +1,14 @@
 package ru.castprograms.platformsuai.data.news
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Item(
     val Abstract: String,
     val AuthorDate: String,
     val AuthorUserPtr: Int,
-    val Content: Any,
+    val Content: String?,
     val Date: String,
     val Keywords: String,
     val ListCategories: List<ListCategory>,

@@ -47,7 +47,6 @@ class LessonsAdapter(
 
         fun bind(lesson: Lesson) {
             getTime(lesson.less).split('-').let {
-                println(it)
                 binding.textStartTime.text = it[0]
                 binding.textEndTime.text = it[1]
             }

@@ -2,6 +2,8 @@ package ru.castprograms.platformsuai.android.ui.main
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +45,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         binding.recyclerDates.adapter = datesAdapter
         binding.recyclerEvents.adapter = lessonsAdapter
 
+        setHasOptionsMenu(true)
         MainScope().launch(Dispatchers.Main) {
             timeTableViewModel.datesFlow.collectLatest {
                 requireActivity().runOnUiThread {
@@ -100,5 +103,10 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         }.let {
             changeCurrentDay(it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_bar_menu, menu)
     }
 }

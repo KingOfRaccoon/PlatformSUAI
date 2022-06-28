@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="name_app">SUAI</string>
     <string name="time">Время</string>
     <string name="event">Мероприятие</string>
     <string name="no_event">Мероприятий нет</string>
+    <string name="news_university">Новости университета</string>
+    <string name="view_all">Все</string>
 </resources>

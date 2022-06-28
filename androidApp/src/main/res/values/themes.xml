@@ -12,7 +12,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:fontFamily">@font/centurygothic_bold</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/background_standard</item>
+        <item name="android:statusBarColor">@color/main_color</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
@@ -28,7 +28,7 @@
     </style>
 
     <style name="StandardBackground">
-        <item name="android:background">@color/background_standard</item>
+        <item name="android:background">@color/main_color</item>
     </style>
 
     <style name="standardText.calendar_text">
@@ -44,7 +44,7 @@
     </style>
 
     <style name="backgroundCardEvent">
-        <item name="android:backgroundTint">#F6F6F5</item>
+        <item name="android:backgroundTint">@color/light_green_card</item>
     </style>
 
     <style name="textInCard">

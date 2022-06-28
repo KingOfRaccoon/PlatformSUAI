@@ -9,6 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_bnv_fab">#7370FB</color>
 
+    <color name="main_color">#F4FAFF</color>
+    <color name="light_green_card">#EAFDF8</color>
+    <color name="light_blue_news_color">#EFF5FA</color>
+    <color name="text_color">#273469</color>
+    <color name="hight_blue">#628FFB</color>
+
+    <!--    old colors  -->
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>

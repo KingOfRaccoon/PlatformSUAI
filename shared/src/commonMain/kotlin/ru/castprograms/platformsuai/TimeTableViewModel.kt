@@ -13,7 +13,7 @@ import ru.castprograms.calendarkmmsuai.data.time.DataTime
 import ru.castprograms.calendarkmmsuai.data.time.DataTimeWithDifferentWeek
 import ru.castprograms.platformsuai.dispatchers.ioDispatcher
 import ru.castprograms.calendarkmmsuai.repository.TimeTableRepository
-import ru.castprograms.calendarkmmsuai.util.Resource
+import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.data.news.NewsData
 
 class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) : ViewModel() {

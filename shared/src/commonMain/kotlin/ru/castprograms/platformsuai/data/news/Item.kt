@@ -1,6 +1,5 @@
 package ru.castprograms.platformsuai.data.news
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable

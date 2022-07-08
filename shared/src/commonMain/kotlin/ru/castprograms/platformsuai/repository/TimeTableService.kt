@@ -10,7 +10,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ru.castprograms.calendarkmmsuai.data.Lesson
 import ru.castprograms.calendarkmmsuai.data.Semester
-import ru.castprograms.calendarkmmsuai.util.Resource
+import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.calendarkmmsuai.data.Group
 import ru.castprograms.platformsuai.data.news.NewsData
 

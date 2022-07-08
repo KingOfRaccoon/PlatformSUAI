@@ -1,4 +1,4 @@
-package ru.castprograms.calendarkmmsuai.util
+package ru.castprograms.platformsuai.util
 
 sealed class Resource<T>(
     val data: T? = null,

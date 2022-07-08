@@ -11,7 +11,7 @@ import com.example.moeidbannerlibrary.banner.BaseBannerAdapter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.castprograms.calendarkmmsuai.util.Resource
+import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.TimeTableViewModel
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.FragmentMainBinding
@@ -46,22 +46,18 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         binding.recyclerEvents.adapter = lessonsAdapter
 
         setHasOptionsMenu(true)
-        MainScope().launch(Dispatchers.Main) {
-            timeTableViewModel.datesFlow.collectLatest {
-                requireActivity().runOnUiThread {
-                    datesAdapter.setNewDates(it)
-                }
-            }
-        }
+        loadData()
+    }
 
-        MainScope().launch(Dispatchers.Main) {
-            timeTableViewModel.timeTableGroupFlow.collectLatest {
-                requireActivity().runOnUiThread {
-                    lessonsAdapter.setNewLessons(it.data?.get(12) ?: listOf())
-                }
-            }
-        }
+    // загрузка данных
+    private fun loadData() {
+        loadDates()
+        loadTimeTable()
+        loadBannersAndNews()
+    }
 
+    // загрузка данных для баннеров и новостей
+    private fun loadBannersAndNews() {
         MainScope().launch(Dispatchers.Main) {
             timeTableViewModel.newsFlow.collectLatest {
                 if (it is Resource.Success){
@@ -71,6 +67,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
                     println(urls)
 
                     requireActivity().runOnUiThread {
+                        binding.recyclerNews.adapter = NewsAdapter(it.data?.Pubs?.Items?.take(5) ?: listOf())
                         binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
                         binding.banner.setAutoPlaying(true)
                     }
@@ -81,10 +78,33 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         }
     }
 
+    // загрузка данных для расписания
+    private fun loadTimeTable() {
+        MainScope().launch(Dispatchers.Main) {
+            timeTableViewModel.timeTableGroupFlow.collectLatest {
+                requireActivity().runOnUiThread {
+                    lessonsAdapter.setNewLessons(it.data?.get(12) ?: listOf())
+                }
+            }
+        }
+    }
+
+    // загрузка данных для списка дат
+    private fun loadDates() {
+        MainScope().launch(Dispatchers.Main) {
+            timeTableViewModel.datesFlow.collectLatest {
+                requireActivity().runOnUiThread {
+                    datesAdapter.setNewDates(it)
+                }
+            }
+        }
+    }
+
     override fun onItemClick(position: Int, day: Int, week: Int) {
 
     }
 
+    // изменение текущего дня в списке дней
     private fun changeCurrentDay(position: Int) {
         currentIndex = position
         Handler(requireContext().mainLooper).postDelayed({
@@ -96,6 +116,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         }, 2)
     }
 
+    // установка текущего дня в списке дей
     private fun setCurrentDay() {
         val date = timeTableViewModel.getCurrentDay()
         datesAdapter.dates.indexOfFirst {
@@ -105,6 +126,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
         }
     }
 
+    // подгрузка меню в Appbar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.app_bar_menu, menu)

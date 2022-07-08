@@ -1,4 +1,4 @@
-package ru.castprograms.platformsuai
+package ru.castprograms.platformsuai.viewModels
 
 import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.cancel
@@ -12,15 +12,23 @@ import ru.castprograms.calendarkmmsuai.data.Semester
 import ru.castprograms.calendarkmmsuai.data.time.DataTime
 import ru.castprograms.calendarkmmsuai.data.time.DataTimeWithDifferentWeek
 import ru.castprograms.platformsuai.dispatchers.ioDispatcher
-import ru.castprograms.calendarkmmsuai.repository.TimeTableRepository
+import ru.castprograms.platformsuai.repository.timetable.TimetableRepository
 import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.data.news.NewsData
+import ru.castprograms.platformsuai.repository.news.NewsRepository
 
-class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) : ViewModel() {
+class MainViewModel(
+    private val timetableRepository: TimetableRepository,
+    private val newsRepository: NewsRepository
+) : ViewModel() {
     private val _timeTableGroupFlow = MutableSharedFlow<Resource<Map<Int, List<Lesson>>>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    ).apply {
+        viewModelScope.launch (ioDispatcher){
+            emit(Resource.Loading())
+        }
+    }
     val timeTableGroupFlow = _timeTableGroupFlow.asSharedFlow()
 
     private val _datesFlow = MutableSharedFlow<List<DataTimeWithDifferentWeek>>(
@@ -32,13 +40,22 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
     private val _semesterInfoFlow = MutableSharedFlow<Resource<Semester>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    ).apply {
+        viewModelScope.launch (ioDispatcher){
+            emit(Resource.Loading())
+        }
+    }
+
     val semesterInfoFlow = _semesterInfoFlow.asSharedFlow()
 
     private val _newsFlow = MutableSharedFlow<Resource<NewsData>>(
         replay = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    ).apply {
+        viewModelScope.launch (ioDispatcher){
+            emit(Resource.Loading())
+        }
+    }
     val newsFlow = _newsFlow.asSharedFlow()
 
     init {
@@ -47,9 +64,9 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
 
     private fun loadData() {
         viewModelScope.launch(ioDispatcher) {
-            _timeTableGroupFlow.emit(timeTableRepository.getTimeTableGroup("211"))
-            _newsFlow.emit(timeTableRepository.getNews("main"))
-            timeTableRepository.getSemInfo().let { semester ->
+            _timeTableGroupFlow.emit(timetableRepository.getTimeTableGroup("211"))
+            _newsFlow.emit(newsRepository.getNews("main"))
+            timetableRepository.getSemInfo().let { semester ->
                 if (semester is Resource.Success) {
                     semester.data?.let { data ->
                         _semesterInfoFlow.emit(semester)
@@ -81,7 +98,7 @@ class TimeTableViewModel(private val timeTableRepository: TimeTableRepository) :
         }
     }
 
-    fun getTime(lessonTime: Int) = timeTableRepository.getTime(lessonTime)
+    fun getTime(lessonTime: Int) = timetableRepository.getTime(lessonTime)
 
     fun getCurrentDay() = DataTime.now()
 

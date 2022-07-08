@@ -21,8 +21,14 @@ class MainActivity : AppCompatActivity() {
             val appBarConfiguration = AppBarConfiguration(it.graph)
             setupActionBarWithNavController(it, appBarConfiguration)
             binding.bottomNavigationView.setupWithNavController(it)
-        }
 
+            it.addOnDestinationChangedListener { _, destination, _ ->
+                val needHomeButton = arrayOf<Int>()
+                supportActionBar?.setDisplayHomeAsUpEnabled(
+                    destination.id in needHomeButton
+                )
+            }
+        }
         binding.fab.setOnClickListener {
             centerBNVClick()
         }

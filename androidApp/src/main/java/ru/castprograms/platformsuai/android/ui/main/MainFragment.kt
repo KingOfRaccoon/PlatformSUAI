@@ -12,13 +12,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.castprograms.platformsuai.util.Resource
-import ru.castprograms.platformsuai.TimeTableViewModel
+import ru.castprograms.platformsuai.viewModels.MainViewModel
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.FragmentMainBinding
 
 class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemClickListener {
     private var currentIndex = -1
-    private val timeTableViewModel: TimeTableViewModel by viewModel()
+    private val mainViewModel: MainViewModel by viewModel()
     lateinit var binding: FragmentMainBinding
     private val linearLayoutManager by lazy {
         LinearLayoutManager(
@@ -36,7 +36,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     }
 
     private val lessonsAdapter by lazy {
-        LessonsAdapter { timeTableViewModel.getTime(it) }
+        LessonsAdapter { mainViewModel.getTime(it) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,17 +59,17 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     // загрузка данных для баннеров и новостей
     private fun loadBannersAndNews() {
         MainScope().launch(Dispatchers.Main) {
-            timeTableViewModel.newsFlow.collectLatest {
+            mainViewModel.newsFlow.collectLatest {
                 if (it is Resource.Success){
-                    val urls = it.data?.let {
-                        it.Banners.map { "https://media.guap.ru/${it.bannerMediaUrl}.jpg" }
-                    }
-                    println(urls)
+//                    val urls = it.data?.let {
+//                        it.Banners.map { "https://media.guap.ru/${it.bannerMediaUrl}.jpg" }
+//                    }
+//                    println(urls)
 
                     requireActivity().runOnUiThread {
                         binding.recyclerNews.adapter = NewsAdapter(it.data?.Pubs?.Items?.take(5) ?: listOf())
-                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
-                        binding.banner.setAutoPlaying(true)
+//                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
+//                        binding.banner.setAutoPlaying(false)
                     }
                 } else {
                     println(it.message)
@@ -81,7 +81,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     // загрузка данных для расписания
     private fun loadTimeTable() {
         MainScope().launch(Dispatchers.Main) {
-            timeTableViewModel.timeTableGroupFlow.collectLatest {
+            mainViewModel.timeTableGroupFlow.collectLatest {
                 requireActivity().runOnUiThread {
                     lessonsAdapter.setNewLessons(it.data?.get(12) ?: listOf())
                 }
@@ -92,7 +92,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     // загрузка данных для списка дат
     private fun loadDates() {
         MainScope().launch(Dispatchers.Main) {
-            timeTableViewModel.datesFlow.collectLatest {
+            mainViewModel.datesFlow.collectLatest {
                 requireActivity().runOnUiThread {
                     datesAdapter.setNewDates(it)
                 }
@@ -118,7 +118,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
 
     // установка текущего дня в списке дей
     private fun setCurrentDay() {
-        val date = timeTableViewModel.getCurrentDay()
+        val date = mainViewModel.getCurrentDay()
         datesAdapter.dates.indexOfFirst {
             it.dayOfMouth == date.dayOfMouth && it.mouth == date.mouth && it.year == date.year
         }.let {

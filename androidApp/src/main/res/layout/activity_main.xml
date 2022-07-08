@@ -32,7 +32,7 @@
         style="@style/btnv_back"
         android:layout_margin="10dp"
         app:menu="@menu/bottom_nav_menu"
-        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlockChat" />
+        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlock" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:background="@drawable/background_fab"
@@ -44,6 +44,6 @@
         app:elevation="16dp"
         app:layout_anchor="@id/bottomNavigationView"
         app:layout_anchorGravity="fill_vertical|center_horizontal"
-        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlockChat" />
+        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlock" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

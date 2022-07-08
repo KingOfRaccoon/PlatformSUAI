@@ -17,7 +17,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.tools.Utils.isDarkThemeOn
 
-@SuppressLint("RestrictedApi")
 class FabBottomNavigationView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BottomNavigationView(context, attrs, defStyleAttr) {
@@ -26,8 +25,8 @@ class FabBottomNavigationView @JvmOverloads constructor(
     private var materialShapeDrawable: MaterialShapeDrawable
     private var fabSize = 0F
     private var fabCradleMargin = 0F
-    var fabCradleRoundedCornerRadius = 0F
-    var cradleVerticalOffset = 0F
+    private var fabCradleRoundedCornerRadius = 0F
+    private var cradleVerticalOffset = 0F
 
     init {
         val ta =

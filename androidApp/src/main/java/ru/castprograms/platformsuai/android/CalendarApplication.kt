@@ -6,15 +6,19 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
-import ru.castprograms.calendarkmmsuai.repository.TimeTableRepository
-import ru.castprograms.platformsuai.TimeTableViewModel
-import ru.castprograms.platformsuai.repository.TimeTableService
+import ru.castprograms.platformsuai.repository.news.NewsRepository
+import ru.castprograms.platformsuai.repository.news.NewsService
+import ru.castprograms.platformsuai.repository.timetable.TimetableRepository
+import ru.castprograms.platformsuai.viewModels.MainViewModel
+import ru.castprograms.platformsuai.repository.timetable.TimetableService
 
 class CalendarApplication: Application() {
     private val module = module {
-        single { TimeTableService() }
-        single { TimeTableRepository(get()) }
-        single { TimeTableViewModel(get()) }
+        single { TimetableService() }
+        single { TimetableRepository(get()) }
+        single { NewsService() }
+        single { NewsRepository(get()) }
+        single { MainViewModel(get(), get()) }
     }
 
     override fun onCreate() {

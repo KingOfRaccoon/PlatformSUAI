@@ -13,12 +13,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import com.google.android.material.animation.AnimationUtils
 
-open class HideBehaviorWithBlockChat<V : View> : CoordinatorLayout.Behavior<V> {
+open class HideBehaviorWithBlock<V : View> : CoordinatorLayout.Behavior<V> {
     private var height = 0
     private var currentState: Int = STATE_SCROLLED_UP
     private var additionalHiddenOffsetY = 0
     private var currentAnimator: ViewPropertyAnimator? = null
-    private var isChat = false
+    private var isBlock = false
 
     constructor() {}
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {}
@@ -78,7 +78,7 @@ open class HideBehaviorWithBlockChat<V : View> : CoordinatorLayout.Behavior<V> {
      * screen.
      */
     fun slideUp(child: V) {
-        if (!isChat) {
+        if (!isBlock) {
             if (currentState == STATE_SCROLLED_UP) {
                 return
             }
@@ -133,7 +133,7 @@ open class HideBehaviorWithBlockChat<V : View> : CoordinatorLayout.Behavior<V> {
     }
 
     fun setIsChat(isChat: Boolean){
-        this.isChat = isChat
+        this.isBlock = isChat
     }
 
     companion object {

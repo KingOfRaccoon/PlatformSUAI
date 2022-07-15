@@ -1,8 +1,9 @@
 package ru.castprograms.platformsuai.data.news
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import ru.castprograms.platformsuai.data.news.tags.Node
+import ru.castprograms.platformsuai.data.news.tags.Target
 
 @Serializable
 data class Banner(
@@ -31,9 +32,9 @@ data class Banner(
     @SerialName("Keywords")
     val keywords: String,
     @SerialName("ListNodes")
-    val listNodes: List<Nodes>?,
+    val listNodes: List<Node>?,
     @SerialName("ListTargets")
-    val listTargets: List<Targets>?,
+    val listTargets: List<Target>?,
     @SerialName("MediaCatalog")
     val mediaCatalog: Int,
     @SerialName("MessageId")

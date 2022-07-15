@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moeidbannerlibrary.banner.BaseBannerAdapter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -67,7 +66,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
 //                    println(urls)
 
                     requireActivity().runOnUiThread {
-                        binding.recyclerNews.adapter = NewsAdapter(it.data?.Pubs?.Items?.take(5) ?: listOf())
+                        binding.recyclerNews.adapter = SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
 //                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
 //                        binding.banner.setAutoPlaying(false)
                     }

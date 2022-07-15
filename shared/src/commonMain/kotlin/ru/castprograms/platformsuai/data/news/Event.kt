@@ -1,7 +1,8 @@
 package ru.castprograms.platformsuai.data.news
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import ru.castprograms.platformsuai.data.news.tags.Node
+import ru.castprograms.platformsuai.data.news.tags.Target
 
 @Serializable
 data class Event(
@@ -17,8 +18,8 @@ data class Event(
     val IsCalendar: Boolean,
     val IsWarning: Boolean,
     val Keywords: String,
-    val ListNodes: List<Nodes>?,
-    val ListTargets: List<Targets>?,
+    val ListNodes: List<Node>?,
+    val ListTargets: List<Target>?,
     val MediaCatalog: Int,
     val MessageId: Int,
     val Notice: String,

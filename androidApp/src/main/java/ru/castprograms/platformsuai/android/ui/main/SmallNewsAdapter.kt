@@ -10,21 +10,21 @@ import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.ItemNewsBinding
 import ru.castprograms.platformsuai.data.news.Item
 
-class NewsAdapter(val items: List<Item>): RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class SmallNewsAdapter(val items: List<Item>): RecyclerView.Adapter<SmallNewsAdapter.SmallNewsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder(LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmallNewsViewHolder {
+        return SmallNewsViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_news, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SmallNewsViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
     override fun getItemCount() = items.size
 
-    inner class NewsViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class SmallNewsViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val binding = ItemNewsBinding.bind(view)
 
         fun bind(item: Item){

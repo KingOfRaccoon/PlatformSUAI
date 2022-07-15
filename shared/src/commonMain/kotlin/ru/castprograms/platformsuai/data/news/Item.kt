@@ -1,6 +1,10 @@
 package ru.castprograms.platformsuai.data.news
 
 import kotlinx.serialization.Serializable
+import ru.castprograms.platformsuai.data.news.tags.Category
+import ru.castprograms.platformsuai.data.news.tags.Node
+import ru.castprograms.platformsuai.data.news.tags.Tag
+import ru.castprograms.platformsuai.data.news.tags.Target
 
 @Serializable
 data class Item(
@@ -10,10 +14,10 @@ data class Item(
     val Content: String?,
     val Date: String,
     val Keywords: String,
-    val ListCategories: List<ListCategory>,
-    val ListNodes: List<Nodes>,
-    val ListTags: List<Tags>,
-    val ListTargets: List<Targets>,
+    val ListCategories: List<Category>,
+    val ListNodes: List<Node>,
+    val ListTags: List<Tag>,
+    val ListTargets: List<Target>,
     val MediaCatalog: Int,
     val Props: String,
     val PubId: Int,

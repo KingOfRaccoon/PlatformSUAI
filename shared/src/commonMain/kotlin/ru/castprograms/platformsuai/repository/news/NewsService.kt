@@ -8,6 +8,7 @@ import io.ktor.client.request.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import ru.castprograms.platformsuai.data.news.NewsData
+import ru.castprograms.platformsuai.data.news.tags.Tag
 import ru.castprograms.platformsuai.util.Resource
 
 class NewsService {
@@ -17,13 +18,30 @@ class NewsService {
             json
         }
     }
-    private val baseUrl = "https://news.guap.ru/api/get-node-content"
+    private val baseUrl = "https://news.guap.ru/api/"
+    private val getNodeContent = "get-node-content"
+    private val getActiveTags = "get-active-tags"
+    private val getCategories = "get-categories"
+    private val getTargets = "get-targets"
+    private val getActiveNodes = "get-active-nodes"
 
     suspend fun getNews(nodeName: String): Resource<NewsData> {
         return try {
             Resource.Success(
                 json.decodeFromString(
-                    httpClient.get("$baseUrl?node=$nodeName").body()
+                    httpClient.get("$baseUrl$getNodeContent?node=$nodeName").body()
+                )
+            )
+        } catch (e: Exception){
+            Resource.Error(e.message.toString())
+        }
+    }
+
+    suspend fun getActiveTags(): Resource<List<Tag>>{
+        return try {
+            Resource.Success(
+                json.decodeFromString(
+                    httpClient.get("$baseUrl$getActiveTags").body()
                 )
             )
         } catch (e: Exception){

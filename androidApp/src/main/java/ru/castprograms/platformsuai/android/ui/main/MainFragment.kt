@@ -66,7 +66,8 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
 //                    println(urls)
 
                     requireActivity().runOnUiThread {
-                        binding.recyclerNews.adapter = SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
+                        binding.recyclerNewsSmall.adapter =
+                            SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
 //                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
 //                        binding.banner.setAutoPlaying(false)
                     }

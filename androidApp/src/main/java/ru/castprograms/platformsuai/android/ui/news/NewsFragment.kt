@@ -14,25 +14,26 @@ import ru.castprograms.platformsuai.android.ui.main.SmallNewsAdapter
 import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.viewModels.MainViewModel
 
-class NewsFragment: Fragment(R.layout.fragment_news) {
-    private val mainViewModel : MainViewModel by viewModel()
+class NewsFragment : Fragment(R.layout.fragment_news) {
+    private val mainViewModel: MainViewModel by viewModel()
     private lateinit var binding: FragmentNewsBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
         loadData()
-
     }
+
     private fun loadData() {
         loadBannersAndNews()
     }
+
     private fun loadBannersAndNews() {
         MainScope().launch(Dispatchers.Main) {
             mainViewModel.newsFlow.collectLatest {
                 if (it is Resource.Success) {
                     requireActivity().runOnUiThread {
                         binding.recyclerNew.adapter =
-                            SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
+                            NewsAdapter(it.data?.Pubs?.items?.take(9) ?: listOf())
                     }
                 } else {
                     println(it.message)

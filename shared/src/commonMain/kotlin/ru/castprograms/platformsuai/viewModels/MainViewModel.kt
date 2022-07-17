@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.*
 import ru.castprograms.calendarkmmsuai.data.Lesson
 import ru.castprograms.calendarkmmsuai.data.Semester
-import ru.castprograms.calendarkmmsuai.data.time.DataTime
+import ru.castprograms.platformsuai.data.time.DataTime
 import ru.castprograms.calendarkmmsuai.data.time.DataTimeWithDifferentWeek
 import ru.castprograms.platformsuai.dispatchers.ioDispatcher
 import ru.castprograms.platformsuai.repository.timetable.TimetableRepository

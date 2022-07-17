@@ -5,16 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import ru.castprograms.platformsuai.android.R
-import ru.castprograms.platformsuai.android.databinding.ItemNewsBinding
+import ru.castprograms.platformsuai.android.databinding.ItemNewSmallBinding
 import ru.castprograms.platformsuai.data.news.Item
 
 class SmallNewsAdapter(val items: List<Item>): RecyclerView.Adapter<SmallNewsAdapter.SmallNewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SmallNewsViewHolder {
         return SmallNewsViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_news, parent, false)
+            .inflate(R.layout.item_new_small, parent, false)
         )
     }
 
@@ -25,7 +26,7 @@ class SmallNewsAdapter(val items: List<Item>): RecyclerView.Adapter<SmallNewsAda
     override fun getItemCount() = items.size
 
     inner class SmallNewsViewHolder(view: View): RecyclerView.ViewHolder(view){
-        private val binding = ItemNewsBinding.bind(view)
+        private val binding = ItemNewSmallBinding.bind(view)
 
         fun bind(item: Item){
             binding.imageNewInCard.loadImage("https://media.guap.ru/${item.MediaCatalog}/_title.jpg")
@@ -37,10 +38,15 @@ class SmallNewsAdapter(val items: List<Item>): RecyclerView.Adapter<SmallNewsAda
 // расширяющая функция для асинхронной загрузки фотографий
 fun ImageView.loadImage(uri: String) {
     this.post {
-        Picasso.get()
-            .load(uri)
-            .resize(this.width, this.height)
+        val myOptions = RequestOptions()
+            .override(this.width, this.height)
+//            .placeholder(R.drawable.attach)
             .centerCrop()
+
+        Glide
+            .with(this.context)
+            .load(uri)
+            .apply(myOptions)
             .into(this)
     }
 }

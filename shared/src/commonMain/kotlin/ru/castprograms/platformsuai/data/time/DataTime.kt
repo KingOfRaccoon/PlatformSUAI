@@ -1,4 +1,4 @@
-package ru.castprograms.calendarkmmsuai.data.time
+package ru.castprograms.platformsuai.data.time
 
 import kotlinx.datetime.*
 
@@ -19,8 +19,23 @@ open class DataTime(
         localDateTime.dayOfWeek.isoDayNumber,
     )
 
-    fun getTime(): String {
-        val localDateTime = LocalDateTime(year, mouth, dayOfWeek, hour, minute)
+    constructor(string: String) : this() {
+        string.split("T").let {
+            it[0].split("-").let { date ->
+                year = date[0].toInt()
+                mouth = date[1].toInt()
+                dayOfMouth = date[2].toInt()
+            }
+
+            it[1].split(":").let { time ->
+                hour = time[0].toInt()
+                minute = time[1].toInt()
+            }
+        }
+    }
+
+    fun getDate(): String {
+        val localDateTime = LocalDateTime(year, mouth, dayOfMouth, hour, minute)
             .toInstant(TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -33,15 +48,15 @@ open class DataTime(
             else -> {
                 string += localDateTime.dayOfMonth.toString()
                 string += " "
-                string += getMouth(localDateTime.monthNumber)
+                string += getMouthForTime()
             }
         }
-        string += ", "
-        string += "${localDateTime.hour}:${localDateTime.minute}"
         return string
     }
 
-    fun getShortcutDayOfWeek() = when(dayOfWeek){
+    fun getDateAndTime() = getDate() + ", ${hour}:" + if (minute >= 10) "$minute" else "0$minute"
+
+    fun getShortcutDayOfWeek() = when (dayOfWeek) {
         DayOfWeek.MONDAY.isoDayNumber -> "Пн"
         DayOfWeek.TUESDAY.isoDayNumber -> "Вт"
         DayOfWeek.WEDNESDAY.isoDayNumber -> "Ср"
@@ -52,23 +67,9 @@ open class DataTime(
         else -> ""
     }
 
-    fun getMouthAndYear() = when (mouth) {
-        0 -> "Января"
-        1 -> "Февраля"
-        2 -> "Марта"
-        3 -> "Апреля"
-        4 -> "Мая"
-        5 -> "Июня"
-        6 -> "Июля"
-        7 -> "Августа"
-        8 -> "Сентября"
-        9 -> "Октября"
-        10 -> "Ноября"
-        11 -> "Декабря"
-        else -> ""
-    } + " $year"
+    fun getMouthAndYear() = getMouth() + " $year"
 
-    fun getDayOfWeekText() = when(dayOfWeek){
+    fun getDayOfWeekText() = when (dayOfWeek) {
         DayOfWeek.MONDAY.isoDayNumber -> "Понедельник"
         DayOfWeek.TUESDAY.isoDayNumber -> "Вторник"
         DayOfWeek.WEDNESDAY.isoDayNumber -> "Среда"
@@ -80,33 +81,42 @@ open class DataTime(
     }
 
     override fun toString(): String {
-        return "$dayOfMouth.${mouth+1}.$year"
+        return "$dayOfMouth.${mouth + 1}.$year"
     }
 
-    fun convertToTime() = "${hour}:${minute}"
-
-    fun getTimeAndDate(): String{
-        return convertToTime() + " " + toString()
+    private fun getMouth() = when (mouth) {
+        1 -> "Январь"
+        2 -> "Февраль"
+        3 -> "Март"
+        4 -> "Апрель"
+        5 -> "Май"
+        6 -> "Июнь"
+        7 -> "Июль"
+        8 -> "Август"
+        9 -> "Сентябр"
+        10 -> "Октябрь"
+        11 -> "Ноябрь"
+        12 -> "Декабрь"
+        else -> ""
     }
 
+    private fun getMouthForTime() = when (mouth) {
+        1 -> "Января"
+        2 -> "Февраля"
+        3 -> "Марта"
+        4 -> "Апреля"
+        5 -> "Мая"
+        6 -> "Июня"
+        7 -> "Июля"
+        8 -> "Августа"
+        9 -> "Сентября"
+        10 -> "Октября"
+        11 -> "Ноября"
+        12 -> "Декабря"
+        else -> ""
+    }
 
     companion object {
         fun now() = DataTime(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()))
-
-        private fun getMouth(mouth: Int) = when (mouth) {
-            0 -> "Января"
-            1 -> "Февраля"
-            2 -> "Марта"
-            3 -> "Апреля"
-            4 -> "Мая"
-            5 -> "Июня"
-            6 -> "Июля"
-            7 -> "Августа"
-            8 -> "Сентября"
-            9 -> "Октября"
-            10 -> "Ноября"
-            11 -> "Декабря"
-            else -> ""
-        }
     }
 }

@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moeidbannerlibrary.banner.BannerLayout
 import ru.castprograms.platformsuai.android.R
 
 class BannerAdapter(private val context: Context, private val urlList: MutableList<String>): RecyclerView.Adapter<BannerAdapter.MzViewHolder>(){
-    private var onBannerItemClickListener: BannerLayout.OnBannerItemClickListener? = null
+//    private var onBannerItemClickListener: BannerLayout.OnBannerItemClickListener? = null
 
-    fun setOnBannerItemClickListener(onBannerItemClickListener: BannerLayout.OnBannerItemClickListener) {
-        this.onBannerItemClickListener = onBannerItemClickListener
-    }
+//    fun setOnBannerItemClickListener(onBannerItemClickListener: BannerLayout.OnBannerItemClickListener) {
+//        this.onBannerItemClickListener = onBannerItemClickListener
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MzViewHolder {
         return MzViewHolder(
@@ -30,9 +29,9 @@ class BannerAdapter(private val context: Context, private val urlList: MutableLi
         val img = holder.imageView
         img.setImageURI(Uri.parse(url))
         img.setOnClickListener {
-            if (onBannerItemClickListener != null) {
-                onBannerItemClickListener!!.onItemClick(P)
-            }
+//            if (onBannerItemClickListener != null) {
+//                onBannerItemClickListener!!.onItemClick(P)
+//            }
         }
     }
 

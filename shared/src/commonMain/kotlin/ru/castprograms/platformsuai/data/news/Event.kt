@@ -11,7 +11,7 @@ data class Event(
     val BannerMediaUrl: String,
     val Content: String?,
     val DateBegin: String,
-    val DateEnd: String,
+    val DateEnd: String?,
     val DateOff: String,
     val DateOn: String,
     val IsBannerOnly: Boolean,

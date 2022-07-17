@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
+    id("kotlin-parcelize")
     kotlin("android")
-    kotlin("android.extensions")
 }
 
 android {
@@ -25,7 +25,6 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("com.github.MoeidHeidari:banner:1.04")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("io.insert-koin:koin-android:3.1.4")
@@ -34,7 +33,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:2.5.0")
     implementation("androidx.core:core:1.8.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.0")
-
     implementation("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
 }

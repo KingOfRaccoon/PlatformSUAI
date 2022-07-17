@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.SSUSUAI" parent="Theme.Material3.DayNight">
-        <item name="actionBarTheme">@style/MyActionBar</item>
+    <style name="Theme.SSUSUAI" parent="Theme.Material3.Light">
+        <item name="actionBarTheme">@style/Theme.SSUSUAI.ActionBarStyle</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">#7370FB</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -16,8 +16,8 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
-    <style name="MyActionBar">
-        <item name="android:background">@drawable/background_standard</item>
+    <style name="Theme.SSUSUAI.ActionBarStyle">
+        <item name="android:background">@color/main_color</item>
         <item name="android:elevation">0dp</item>
         <item name="windowActionBarOverlay">false</item>
     </style>
@@ -62,4 +62,18 @@
     <style name="button">
         <item name="backgroundTint">#346AFC</item>
     </style>
+
+    <style name="iconNew">
+        <item name="tint">#9FADCA</item>
+    </style>
+
+    <style name="iconText">
+        <item name="android:textColor">#9FADCA</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="cardNew">
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
 </resources>

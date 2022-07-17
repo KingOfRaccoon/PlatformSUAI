@@ -1,39 +1,38 @@
 package ru.castprograms.platformsuai.android.ui.news
 
-
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_news.view.*
+import ru.castprograms.platformsuai.data.time.DataTime
 import ru.castprograms.platformsuai.android.R
+import ru.castprograms.platformsuai.android.databinding.ItemNewBinding
+import ru.castprograms.platformsuai.android.ui.main.loadImage
+import ru.castprograms.platformsuai.data.news.Item
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
-    private val dataSet = ArrayList<Item>()
+class NewsAdapter(
+    private val news: List<Item>
+) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        return NewsViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_new, parent, false)
+        )
+    }
 
-    class ViewHolder (view: View): RecyclerView.ViewHolder(view) {
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+        holder.bind(news[position])
+    }
+
+    override fun getItemCount() = news.size
+
+    inner class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding = ItemNewBinding.bind(view)
+
         fun bind(item: Item) {
-            itemView.image_new_in_card.setImageResource(item.imageId)
-            itemView.body_new.text = item.title
+            binding.imageNew.loadImage("https://media.guap.ru/${item.MediaCatalog}/_title.jpg")
+            binding.textTitleNew.text = item.Title
+            binding.textDayNew.text = DataTime(item.Date).getDate()
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_news, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataSet[position])
-    }
-
-    override fun getItemCount() = dataSet.size
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun addItem (item: Item) {
-        dataSet.add(item)
-        notifyDataSetChanged()
     }
 }

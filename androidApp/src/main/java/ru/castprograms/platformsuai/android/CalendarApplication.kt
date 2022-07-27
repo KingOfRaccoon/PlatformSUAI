@@ -11,6 +11,7 @@ import ru.castprograms.platformsuai.repository.news.NewsService
 import ru.castprograms.platformsuai.repository.timetable.TimetableRepository
 import ru.castprograms.platformsuai.viewModels.MainViewModel
 import ru.castprograms.platformsuai.repository.timetable.TimetableService
+import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
 class CalendarApplication: Application() {
     private val module = module {
@@ -19,6 +20,7 @@ class CalendarApplication: Application() {
         single { NewsService() }
         single { NewsRepository(get()) }
         single { MainViewModel(get(), get()) }
+        single { NewsViewModel(get()) }
     }
 
     override fun onCreate() {

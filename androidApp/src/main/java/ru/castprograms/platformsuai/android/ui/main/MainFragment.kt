@@ -5,6 +5,7 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.*
@@ -14,10 +15,12 @@ import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.viewModels.MainViewModel
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.FragmentMainBinding
+import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemClickListener {
     private var currentIndex = -1
     private val mainViewModel: MainViewModel by viewModel()
+    private val newsViewModel: NewsViewModel by viewModel()
     lateinit var binding: FragmentMainBinding
     private val linearLayoutManager by lazy {
         LinearLayoutManager(
@@ -57,25 +60,25 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
 
     // загрузка данных для баннеров и новостей
     private fun loadBannersAndNews() {
-        MainScope().launch(Dispatchers.Main) {
-            mainViewModel.newsFlow.collectLatest {
-                if (it is Resource.Success){
-//                    val urls = it.data?.let {
-//                        it.Banners.map { "https://media.guap.ru/${it.bannerMediaUrl}.jpg" }
+//        MainScope().launch(Dispatchers.Main) {
+//            newsViewModel.newsFlow.collectLatest {
+//                if (it is Resource.Success){
+////                    val urls = it.data?.let {
+////                        it.Banners.map { "https://media.guap.ru/${it.bannerMediaUrl}.jpg" }
+////                    }
+////                    println(urls)
+//
+//                    requireActivity().runOnUiThread {
+//                        binding.recyclerNewsSmall.adapter =
+//                            SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
+////                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
+////                        binding.banner.setAutoPlaying(false)
 //                    }
-//                    println(urls)
-
-                    requireActivity().runOnUiThread {
-                        binding.recyclerNewsSmall.adapter =
-                            SmallNewsAdapter(it.data?.Pubs?.items?.take(5) ?: listOf())
-//                        binding.banner.setAdapter(BaseBannerAdapter(requireContext(), urls))
-//                        binding.banner.setAutoPlaying(false)
-                    }
-                } else {
-                    println(it.message)
-                }
-            }
-        }
+//                } else {
+//                    println(it.message)
+//                }
+//            }
+//        }
     }
 
     // загрузка данных для расписания

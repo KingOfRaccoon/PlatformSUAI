@@ -6,6 +6,7 @@
     android:layout_marginBottom="14dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
+    app:layout_optimizationLevel="standard|dimensions"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.textview.MaterialTextView
@@ -89,7 +90,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_name_event"
-                style="@style/standardTextBold.start_time_and_and_text_in_card_in_calendar"
+                style="@style/standardText.start_time_and_and_text_in_card_in_calendar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"

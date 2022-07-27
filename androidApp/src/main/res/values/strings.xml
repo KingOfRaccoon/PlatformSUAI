@@ -6,4 +6,5 @@
     <string name="no_event">Мероприятий нет</string>
     <string name="news_university">Новости университета</string>
     <string name="view_all">Все</string>
+    <string name="search_filter">Искать категорию…</string>
 </resources>

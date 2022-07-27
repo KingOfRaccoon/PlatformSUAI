@@ -48,16 +48,6 @@ class MainViewModel(
 
     val semesterInfoFlow = _semesterInfoFlow.asSharedFlow()
 
-    private val _newsFlow = MutableSharedFlow<Resource<NewsData>>(
-        replay = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    ).apply {
-        viewModelScope.launch (ioDispatcher){
-            emit(Resource.Loading())
-        }
-    }
-    val newsFlow = _newsFlow.asSharedFlow()
-
     init {
         loadData()
     }
@@ -65,7 +55,6 @@ class MainViewModel(
     private fun loadData() {
         viewModelScope.launch(ioDispatcher) {
             _timeTableGroupFlow.emit(timetableRepository.getTimeTableGroup("211"))
-            _newsFlow.emit(newsRepository.getNews("main"))
             timetableRepository.getSemInfo().let { semester ->
                 if (semester is Resource.Success) {
                     semester.data?.let { data ->

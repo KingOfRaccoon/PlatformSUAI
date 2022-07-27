@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.ItemNewSmallBinding
@@ -42,6 +43,7 @@ fun ImageView.loadImage(uri: String) {
             .override(this.width, this.height)
 //            .placeholder(R.drawable.attach)
             .centerCrop()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
 
         Glide
             .with(this.context)

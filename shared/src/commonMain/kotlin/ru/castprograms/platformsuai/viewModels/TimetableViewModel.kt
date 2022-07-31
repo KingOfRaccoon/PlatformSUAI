@@ -14,12 +14,9 @@ import ru.castprograms.calendarkmmsuai.data.time.DataTimeWithDifferentWeek
 import ru.castprograms.platformsuai.dispatchers.ioDispatcher
 import ru.castprograms.platformsuai.repository.timetable.TimetableRepository
 import ru.castprograms.platformsuai.util.Resource
-import ru.castprograms.platformsuai.data.news.NewsData
-import ru.castprograms.platformsuai.repository.news.NewsRepository
 
-class MainViewModel(
+class TimetableViewModel(
     private val timetableRepository: TimetableRepository,
-    private val newsRepository: NewsRepository
 ) : ViewModel() {
     private val _timeTableGroupFlow = MutableSharedFlow<Resource<Map<Int, List<Lesson>>>>(
         replay = 1,

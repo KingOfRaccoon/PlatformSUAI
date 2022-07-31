@@ -1,4 +1,4 @@
-package ru.castprograms.platformsuai.android.ui.news
+package ru.castprograms.platformsuai.android.ui.main.news
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.castprograms.platformsuai.data.time.DataTime
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.ItemNewBinding
-import ru.castprograms.platformsuai.android.ui.main.loadImage
+import ru.castprograms.platformsuai.android.ui.main.calendar.loadImage
 import ru.castprograms.platformsuai.data.news.Item
 import ru.castprograms.platformsuai.data.news.tags.TagFilter
 

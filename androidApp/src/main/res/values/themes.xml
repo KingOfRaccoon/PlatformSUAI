@@ -59,7 +59,7 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="button">
+    <style name="button" parent="Widget.Material3.MaterialTimePicker.ImageButton">
         <item name="backgroundTint">#346AFC</item>
     </style>
 

@@ -1,4 +1,4 @@
-package ru.castprograms.platformsuai.android.ui.news
+package ru.castprograms.platformsuai.android.ui.main.news
 
 import android.os.Bundle
 import android.view.View
@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.FragmentNewsBinding
-import ru.castprograms.platformsuai.android.ui.filter.FilterChipsAdapter
-import ru.castprograms.platformsuai.android.ui.filter.FilterFragment
+import ru.castprograms.platformsuai.android.ui.main.filter.FilterChipsAdapter
+import ru.castprograms.platformsuai.android.ui.main.filter.FilterFragment
 import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
@@ -30,6 +30,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
         binding.recyclerNew.adapter = newsAdapter
+        binding.recyclerNew.showShimmerAdapter()
         loadData()
         binding.buttonSort.setOnClickListener {
             FilterFragment().show(childFragmentManager, "tag")
@@ -51,6 +52,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             newsViewModel.newsFlow.collectLatest {
                 if (it is Resource.Success) {
                     newsAdapter.items = it.data?.items ?: listOf()
+                    binding.recyclerNew.hideShimmerAdapter()
                 } else {
                     println(it.message)
                 }

@@ -9,8 +9,8 @@ import org.koin.dsl.module
 import ru.castprograms.platformsuai.repository.news.NewsRepository
 import ru.castprograms.platformsuai.repository.news.NewsService
 import ru.castprograms.platformsuai.repository.timetable.TimetableRepository
-import ru.castprograms.platformsuai.viewModels.MainViewModel
 import ru.castprograms.platformsuai.repository.timetable.TimetableService
+import ru.castprograms.platformsuai.viewModels.TimetableViewModel
 import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
 class CalendarApplication: Application() {
@@ -19,7 +19,7 @@ class CalendarApplication: Application() {
         single { TimetableRepository(get()) }
         single { NewsService() }
         single { NewsRepository(get()) }
-        single { MainViewModel(get(), get()) }
+        single { TimetableViewModel(get()) }
         single { NewsViewModel(get()) }
     }
 

@@ -6,41 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navigation_main"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_main" />
 
     <ru.castprograms.platformsuai.android.ui.custombottomnavigationview.FabBottomNavigationView
         android:id="@+id/bottomNavigationView"
+        style="@style/btnv_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:fab_cradle_margin="8dp"
+        android:layout_margin="10dp"
         app:elevation="37dp"
+        app:fab_cradle_margin="8dp"
         app:fab_cradle_rounded_corner_radius="8dp"
         app:fab_size="50dp"
-        style="@style/btnv_back"
-        android:layout_margin="10dp"
-        app:menu="@menu/bottom_nav_menu"
-        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlock" />
+        app:layout_behavior=".ui.custombottomnavigationview.HideBehaviorWithBlock"
+        app:menu="@menu/bottom_nav_menu" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:background="@drawable/background_fab"
-        android:src="@drawable/ic_home"
-        android:padding="20dp"
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/background_fab"
+        android:padding="20dp"
+        android:src="@drawable/ic_home"
         app:elevation="16dp"
         app:layout_anchor="@id/bottomNavigationView"
         app:layout_anchorGravity="fill_vertical|center_horizontal"

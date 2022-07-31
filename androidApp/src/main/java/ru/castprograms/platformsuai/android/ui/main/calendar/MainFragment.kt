@@ -1,25 +1,23 @@
-package ru.castprograms.platformsuai.android.ui.main
+package ru.castprograms.platformsuai.android.ui.main.calendar
 
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.castprograms.platformsuai.util.Resource
-import ru.castprograms.platformsuai.viewModels.MainViewModel
+import ru.castprograms.platformsuai.viewModels.TimetableViewModel
 import ru.castprograms.platformsuai.android.R
 import ru.castprograms.platformsuai.android.databinding.FragmentMainBinding
 import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemClickListener {
     private var currentIndex = -1
-    private val mainViewModel: MainViewModel by viewModel()
+    private val timetableViewModel: TimetableViewModel by viewModel()
     private val newsViewModel: NewsViewModel by viewModel()
     lateinit var binding: FragmentMainBinding
     private val linearLayoutManager by lazy {
@@ -38,7 +36,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     }
 
     private val lessonsAdapter by lazy {
-        LessonsAdapter { mainViewModel.getTime(it) }
+        LessonsAdapter { timetableViewModel.getTime(it) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,7 +82,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     // загрузка данных для расписания
     private fun loadTimeTable() {
         MainScope().launch(Dispatchers.Main) {
-            mainViewModel.timeTableGroupFlow.collectLatest {
+            timetableViewModel.timeTableGroupFlow.collectLatest {
                 requireActivity().runOnUiThread {
                     lessonsAdapter.setNewLessons(it.data?.get(12) ?: listOf())
                 }
@@ -95,7 +93,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
     // загрузка данных для списка дат
     private fun loadDates() {
         MainScope().launch(Dispatchers.Main) {
-            mainViewModel.datesFlow.collectLatest {
+            timetableViewModel.datesFlow.collectLatest {
                 requireActivity().runOnUiThread {
                     datesAdapter.setNewDates(it)
                 }
@@ -121,7 +119,7 @@ class MainFragment : Fragment(R.layout.fragment_main), DatesAdapter.OnDateItemCl
 
     // установка текущего дня в списке дей
     private fun setCurrentDay() {
-        val date = mainViewModel.getCurrentDay()
+        val date = timetableViewModel.getCurrentDay()
         datesAdapter.dates.indexOfFirst {
             it.dayOfMouth == date.dayOfMouth && it.mouth == date.mouth && it.year == date.year
         }.let {

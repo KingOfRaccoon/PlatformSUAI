@@ -39,7 +39,7 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="button_sort, recycler_selected_filters" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         android:id="@+id/recycler_new"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -48,6 +48,10 @@
         app:layout_constraintTop_toBottomOf="@id/barrier_bottom_header_news"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="5"
-        tools:listitem="@layout/item_new"/>
+        tools:listitem="@layout/item_new"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_shimmer_color="@color/white"
+        app:shimmer_demo_layout="@layout/item_new_shimmer"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

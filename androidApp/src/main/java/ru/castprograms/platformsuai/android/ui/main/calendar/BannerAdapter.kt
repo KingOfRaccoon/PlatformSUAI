@@ -1,4 +1,4 @@
-package ru.castprograms.platformsuai.android.ui.main
+package ru.castprograms.platformsuai.android.ui.main.calendar
 
 import android.content.Context
 import android.net.Uri

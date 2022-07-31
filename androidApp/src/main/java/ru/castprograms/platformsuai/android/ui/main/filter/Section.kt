@@ -1,4 +1,4 @@
-package ru.castprograms.platformsuai.android.ui.filter
+package ru.castprograms.platformsuai.android.ui.main.filter
 
 interface Section {
     fun type(): Int

@@ -1,6 +1,5 @@
-package ru.castprograms.platformsuai.android.ui.main
+package ru.castprograms.platformsuai.android.ui.main.calendar
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View

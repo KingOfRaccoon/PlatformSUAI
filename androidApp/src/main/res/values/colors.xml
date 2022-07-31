@@ -37,4 +37,5 @@
     <color name="color_reply">#c4c4c4</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFBB86FC</color>
+    <color name="background">#dddddd</color>
 </resources>

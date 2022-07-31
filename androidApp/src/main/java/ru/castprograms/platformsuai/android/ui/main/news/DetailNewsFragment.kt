@@ -25,6 +25,5 @@ class DetailNewsFragment : Fragment(R.layout.fragment_detail_news) {
         binding.textTitleNew.text = "здесь будет основной текст новости"
         binding.textDayNew.text = "дата публикации"
         binding.imageDetail.loadImage("https://media.guap.ru/$newsId/_title.jpg")
-        //loadBannersAndNews()
     }
 }

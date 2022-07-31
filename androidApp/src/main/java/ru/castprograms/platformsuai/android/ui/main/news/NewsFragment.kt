@@ -18,11 +18,12 @@ import ru.castprograms.platformsuai.android.ui.main.filter.FilterFragment
 import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
-class NewsFragment : Fragment(R.layout.fragment_news), TransferData {
+class NewsFragment : Fragment(R.layout.fragment_news){
     private val newsViewModel: NewsViewModel by viewModel()
     private lateinit var binding: FragmentNewsBinding
     private lateinit var navController: NavController
-    private val newsAdapter = NewsAdapter( { binding.recyclerNew.scrollToPosition(it) }, this@NewsFragment)
+    private val newsAdapter =
+        NewsAdapter( { binding.recyclerNew.scrollToPosition(it) }, {showDetailNews(it)})
     private val chipFilterAdapter =
         FilterChipsAdapter({ newsViewModel.removeSelectedTagFilter(it) }) {
             binding.recyclerSelectedFilters.scrollToPosition(it)
@@ -47,12 +48,10 @@ class NewsFragment : Fragment(R.layout.fragment_news), TransferData {
             newsAdapter.filters = list
         }
     }
-
-    override fun passData(id: Int) {
+    private fun showDetailNews(id: Int){
         val action = NewsFragmentDirections.actionNewsFragmentToDetailNewsFragment(id)
         navController.navigate(action)
     }
-
     private fun loadData() {
         loadNews()
     }

@@ -14,7 +14,7 @@ import ru.castprograms.platformsuai.data.news.tags.TagFilter
 
 class NewsAdapter(
     val scrollToPosition: (Int) -> Unit,
-    val listener: TransferData
+    val showFragment: (Int) -> Unit
 ) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
     var filters = mutableListOf<TagFilter>()
         set(value) {
@@ -97,7 +97,7 @@ class NewsAdapter(
             binding.textDayNew.text = DataTime(item.Date).getDate()
             binding.root.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.passData(item.MediaCatalog)
+                    showFragment(item.MediaCatalog)
                 }
             }
         }

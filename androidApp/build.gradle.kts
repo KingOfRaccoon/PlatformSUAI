@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-parcelize")
+    id("androidx.navigation.safeargs") apply true
     kotlin("android")
 }
 

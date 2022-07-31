@@ -15,7 +15,21 @@
         android:id="@+id/newsFragment"
         android:name="ru.castprograms.platformsuai.android.ui.main.news.NewsFragment"
         android:label="Новости"
-        tools:layout="@layout/fragment_news"/>
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_newsFragment_to_detailNewsFragment"
+            app:destination="@id/detailNewsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailNewsFragment"
+        android:name="ru.castprograms.platformsuai.android.ui.main.news.DetailNewsFragment"
+        android:label=" "
+        tools:layout="@layout/fragment_detail_news">
+        <argument
+            android:name="newsMediaCatalogId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/mainFragment"

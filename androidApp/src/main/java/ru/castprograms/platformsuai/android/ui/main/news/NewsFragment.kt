@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import dev.icerock.moko.mvvm.livedata.Closeable
 import dev.icerock.moko.mvvm.livedata.addCloseableObserver
 import kotlinx.coroutines.flow.*
@@ -16,19 +18,22 @@ import ru.castprograms.platformsuai.android.ui.main.filter.FilterFragment
 import ru.castprograms.platformsuai.util.Resource
 import ru.castprograms.platformsuai.viewModels.NewsViewModel
 
-class NewsFragment : Fragment(R.layout.fragment_news) {
+class NewsFragment : Fragment(R.layout.fragment_news), TransferData {
     private val newsViewModel: NewsViewModel by viewModel()
-    private val newsAdapter = NewsAdapter { binding.recyclerNew.scrollToPosition(it) }
+    private lateinit var binding: FragmentNewsBinding
+    private lateinit var navController: NavController
+    private val newsAdapter = NewsAdapter( { binding.recyclerNew.scrollToPosition(it) }, this@NewsFragment)
     private val chipFilterAdapter =
         FilterChipsAdapter({ newsViewModel.removeSelectedTagFilter(it) }) {
             binding.recyclerSelectedFilters.scrollToPosition(it)
         }
-    private lateinit var binding: FragmentNewsBinding
+
     private lateinit var observer: Closeable
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewsBinding.bind(view)
+        navController = view.findNavController()
         binding.recyclerNew.adapter = newsAdapter
         binding.recyclerNew.showShimmerAdapter()
         loadData()
@@ -41,6 +46,11 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             chipFilterAdapter.tagFilters = list.toList()
             newsAdapter.filters = list
         }
+    }
+
+    override fun passData(id: Int) {
+        val action = NewsFragmentDirections.actionNewsFragmentToDetailNewsFragment(id)
+        navController.navigate(action)
     }
 
     private fun loadData() {
